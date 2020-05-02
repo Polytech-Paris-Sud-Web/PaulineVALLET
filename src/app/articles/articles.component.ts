@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Article} from "../models/article";
-import {ArticleService} from "../services/article.service";
-import {Observable} from "rxjs";
+import {Article} from '../models/article';
+import {ArticleService} from '../services/article.service';
 
 @Component({
   selector: 'app-articles',
@@ -11,12 +10,12 @@ import {Observable} from "rxjs";
 export class ArticlesComponent implements OnInit {
 
   nb: number; //nombre de resultats de la recherche
-  private _articles: Observable<Article[]>;
+  private _articles: Article[];
 
   constructor(private articleService: ArticleService) {
   }
 
-  articles(): Observable<Article[]> {
+  articles(): Article[] {
     return this._articles;
   }
 
@@ -24,13 +23,13 @@ export class ArticlesComponent implements OnInit {
     this.findAll();
   }
 
-  delete(article: Article){
-    this.articleService.delete(article.id).subscribe(()=>{
+  delete(article: Article) {
+    this.articleService.delete(article.id).subscribe(() => {
       this.findAll();
     });
   }
 
-  newArticle(article: Article){
+  newArticle(article: Article) {
     this.findAll();
   }
 
@@ -40,11 +39,11 @@ export class ArticlesComponent implements OnInit {
       this.nb = this._articles.length;
     });
   }
-  search(){
-    let title = document.getElementById("Title")['value'];
-    console.log(title)
-    if (title == ""){
-      document.getElementById("Result");
+  search() {
+    const title = document.getElementById('Title')['value'];
+    console.log(title);
+    if (title == '') {
+      document.getElementById('Result');
       this.findAll();
     }
   }
