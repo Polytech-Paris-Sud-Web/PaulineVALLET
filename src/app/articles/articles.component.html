@@ -1,3 +1,11 @@
-<div *ngFor="let article of this.articles() | async">
+<div>
+  <div>
+    <h6>Search</h6>
+    <input type="text" (keyup)="search()" id="Title" placeholder="Title">
+  </div>
+  <span id="Result"> {{nb}} Result(s) founded</span>
+</div>
+
+<div *ngFor="let article of this.articles()">
   <app-article  [article]="article" (deletedArticle)="delete($event)"></app-article>
 </div>

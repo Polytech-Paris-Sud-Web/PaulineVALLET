@@ -10,7 +10,8 @@ import {Observable} from "rxjs";
 })
 export class ArticlesComponent implements OnInit {
 
-  private _articles : Observable<Article[]>;
+  nb: number; //nombre de resultats de la recherche
+  private _articles: Observable<Article[]>;
 
   constructor(private articleService: ArticleService) {
   }
@@ -20,17 +21,31 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._articles = this.articleService.getAll();
+    this.findAll();
   }
 
   delete(article: Article){
     this.articleService.delete(article.id).subscribe(()=>{
-      this._articles = this.articleService.getAll();
+      this.findAll();
     });
   }
 
   newArticle(article: Article){
-    this._articles = this.articleService.getAll();
+    this.findAll();
   }
 
+  private findAll() {
+    this.articleService.getAll().subscribe((articles) => {
+      this._articles = articles;
+      this.nb = this._articles.length;
+    });
+  }
+  search(){
+    let title = document.getElementById("Title")['value'];
+    console.log(title)
+    if (title == ""){
+      document.getElementById("Result");
+      this.findAll();
+    }
+  }
 }

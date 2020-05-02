@@ -34,23 +34,4 @@ export class ArticleComponent implements OnInit {
     this.deletedArticle.emit(this.article);
   }
 
-  search(){
-    let title = document.getElementById("searchTitle")['value'];
-    console.log(title)
-
-    if(title == ""){
-      document.getElementById("searchResult").style.color = "initial";
-      this.findAll();
-    }
-    else{
-      this.articleService.getAll().subscribe((articles) => {
-        this._articles = articles.filter(e => {
-          if((e.title.includes(title) && title!="") || (e.content.includes(content) && content!="") || (e.authors.includes(authors) && authors !="")){
-            return e;
-          }
-        });
-        document.getElementById("searchResult").style.color = this._articles.length!=0 ? "initial" : "red";
-        this.nbResultsFounded = this._articles.length;
-      })
-    }
 }
